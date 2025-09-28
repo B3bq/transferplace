@@ -1,0 +1,21 @@
+@use 'variables.scss' as *;
+
+:root{
+    font-size: 87.5%;
+    font-family: $mainFont;
+    box-sizing: border-box;
+    color: $fontColor;
+}
+*, *::before, *::after{
+    box-sizing: inherit;
+}
+body{
+    margin: 0;
+    background: $background;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-content: center;
+    min-height: 100dvh;
+    width: 500px;
+}

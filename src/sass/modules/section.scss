@@ -1,0 +1,53 @@
+@use 'variables.scss' as *;
+
+body>header{
+    display: grid;
+    grid-template-columns: repeat(8, 1fr);
+
+    h1{
+        grid-column: 1/4;
+        grid-row: 1;
+        justify-self: center;
+    }
+    img{
+        grid-column: 1;
+        grid-row: 2/7;
+    }
+    .club__data{
+        grid-column: 7/9;
+        grid-row: 1/2;
+        img{
+            width: 100px;
+            height: 100px;
+        }
+    }
+    .data__list{
+        display: grid;
+        grid-column: 3/4;
+        grid-row: 7;
+        &-bio{
+            grid-column: 3;
+            grid-row: 7;
+        }
+        &-poz{
+            grid-column: 4;
+            grid-row: 7;
+        }
+    }
+}
+
+.playground{
+    position: absolute;
+    width: 300px;
+    height: 400px;
+    background: #1e3a5f;
+    border: 2px solid #fff;
+}
+.position{
+    position: absolute;
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: #fff;
+    display: none;
+}
