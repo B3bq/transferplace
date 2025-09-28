@@ -31,11 +31,21 @@ document.addEventListener("DOMContentLoaded", () => {
   document.getElementById("junior_assist").textContent = sumColumn("junior_assist");
   document.getElementById("junior_own").textContent = sumColumn("junior_own");
 
-  document.querySelectorAll(".position").forEach(e=>{
-    const val = parseInt(e.dataset.value, 10);
-    if(!isNaN(val) && val >= 50){
-      e.style.display = "block";
-    }
+  const positions = Array.from(document.querySelectorAll(".position"));
+
+  const visible = positions.map(e => ({e, val: parseInt(e.dataset.value, 10) || 0})).filter(x => x.val >= 50);
+
+  visible.sort((a,b) => b.val - a.val);
+
+  const maxSize = 70;
+  const minSize = 25;
+  const step = visible.length > 1 ? (maxSize - minSize) / (visible.length - 1) : 0;
+
+  visible.forEach((item, index) => {
+    const size = Math.round(maxSize -index * step);
+    item.e.style.display = "block";
+    item.e.style.width = size + "px";
+    item.e.style.height = size + "px";
   })
 
   spots = Array.from(document.querySelectorAll(".position"));

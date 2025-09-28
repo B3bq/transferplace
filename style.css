@@ -3,6 +3,7 @@
   font-family: Roboto, sans-serif;
   box-sizing: border-box;
   color: #242424;
+  background: #b3b3b3;
 }
 
 *, *::before, *::after {
@@ -10,66 +11,235 @@
 }
 
 body {
-  margin: 0;
+  margin: auto;
   background: #ccc;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-content: center;
   min-height: 100dvh;
-  width: 500px;
+  width: 1200px;
+  box-shadow: inset;
 }
 
 body > header {
   display: grid;
   grid-template-columns: repeat(8, 1fr);
+  background-image: linear-gradient(to bottom, white 0%, #dddddd 30%, #dddddd 68.5%, white 68.5%);
+  margin: 15px 5px;
 }
 body > header h1 {
   grid-column: 1/4;
   grid-row: 1;
-  justify-self: center;
+  margin-left: 10px;
 }
 body > header img {
   grid-column: 1;
   grid-row: 2/7;
+  margin-left: 10px;
+  margin-bottom: 10px;
 }
 body > header .club__data {
   grid-column: 7/9;
   grid-row: 1/2;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  background: #fff;
+  border: 1px solid #ccc;
+  margin: 20px;
+  width: 300px;
 }
 body > header .club__data img {
   width: 100px;
   height: 100px;
+  margin: 0;
+}
+body > header .club__data p {
+  text-wrap: nowrap;
 }
 body > header .data__list {
   display: grid;
   grid-column: 3/4;
   grid-row: 7;
+  text-wrap: nowrap;
 }
 body > header .data__list-bio {
   grid-column: 3;
   grid-row: 7;
+  list-style: none;
 }
 body > header .data__list-poz {
   grid-column: 4;
   grid-row: 7;
+  list-style: none;
+}
+
+main > nav {
+  background: var(--tm-admiral, #00193f);
+  margin: 25px 5px;
+}
+
+main > nav > ul {
+  display: flex;
+  flex-direction: row;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+main > nav > ul li {
+  position: relative;
+}
+main > nav > ul li a {
+  display: block;
+  padding: 10px 15px;
+  color: #fff;
+  text-decoration: none;
+  font-size: 13px;
+  letter-spacing: 0.5px;
+}
+main > nav > ul li:hover {
+  background: #152f57;
+}
+
+.dropdown {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background: #153366;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  min-width: 150px;
+  z-index: 100;
+}
+.dropdown li a {
+  display: block;
+  padding: 8px 12px;
+  color: #fff;
+  text-decoration: none;
+  font-size: 13px;
+}
+.dropdown li a:hover {
+  background: #1f4b99;
+}
+
+main > nav > ul > li:hover .dropdown {
+  display: block;
+}
+
+.competition {
+  margin: 10px 5px;
+  background: #152f57;
+}
+
+.bio {
+  display: flex;
+  flex-direction: column;
+  margin: 10px 5px;
+  background: #fff;
+}
+.bio header {
+  background: #00193f;
+  color: #fff;
+}
+.bio header h2 {
+  margin-left: 10px;
+}
+.bio .box {
+  display: flex;
+  flex-direction: row;
+}
+.bio .box .info {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  margin-left: 10px;
+  width: 50%;
+}
+.bio .box .info p {
+  grid-column: 1;
+}
+.bio .box .info strong {
+  grid-column: 2;
+  align-self: center;
+}
+.bio .pitch {
+  display: flex;
+  flex-direction: column;
+  width: 50%;
+}
+.bio .pitch__info {
+  display: flex;
+  flex-direction: row;
 }
 
 .playground {
-  position: absolute;
-  width: 300px;
-  height: 400px;
-  background: #1e3a5f;
+  position: relative;
+  width: 600px;
+  height: 500px;
+  margin-right: 5px;
+  margin-bottom: 5px;
+  background-image: url("src/img/pitch.png");
+  background-repeat: no-repeat;
+  background-size: cover;
   border: 2px solid #fff;
 }
 
 .position {
   position: absolute;
-  width: 14px;
-  height: 14px;
   border-radius: 50%;
   background: #fff;
   display: none;
+}
+
+.transfer {
+  display: flex;
+  flex-direction: column;
+}
+.transfer header {
+  background: #00193f;
+  color: #fff;
+}
+.transfer header h2 {
+  margin-left: 10px;
+}
+
+.acctual {
+  display: flex;
+  flex-direction: column;
+}
+.acctual header {
+  background: #00193f;
+  color: #fff;
+}
+.acctual header h2 {
+  margin-left: 10px;
+}
+
+.sezon_history {
+  display: flex;
+  flex-direction: column;
+}
+.sezon_history header {
+  background: #00193f;
+  color: #fff;
+}
+.sezon_history header h2 {
+  margin-left: 10px;
+}
+
+.sezon_history_junior {
+  display: flex;
+  flex-direction: column;
+}
+.sezon_history_junior header {
+  background: #00193f;
+  color: #fff;
+}
+.sezon_history_junior header h2 {
+  margin-left: 10px;
 }
 
 /*# sourceMappingURL=style.css.map */

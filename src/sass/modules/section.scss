@@ -3,51 +3,230 @@
 body>header{
     display: grid;
     grid-template-columns: repeat(8, 1fr);
+    background-image: linear-gradient(to bottom, white 0%, #dddddd 30%, #dddddd 68.5%, white 68.5%);
+    margin: 15px 5px;
 
     h1{
         grid-column: 1/4;
         grid-row: 1;
-        justify-self: center;
+        margin-left: 10px;
     }
     img{
         grid-column: 1;
         grid-row: 2/7;
+        margin-left: 10px;
+        margin-bottom: 10px;
     }
     .club__data{
         grid-column: 7/9;
         grid-row: 1/2;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        background: $background2;
+        border: 1px solid $background;
+        margin: 20px;
+        width: 300px;
         img{
             width: 100px;
             height: 100px;
+            margin: 0;
+        }
+        p{
+            text-wrap: nowrap;
         }
     }
     .data__list{
         display: grid;
         grid-column: 3/4;
         grid-row: 7;
+        text-wrap: nowrap;
         &-bio{
             grid-column: 3;
             grid-row: 7;
+            list-style: none;
         }
         &-poz{
             grid-column: 4;
             grid-row: 7;
+            list-style: none;
+        }
+    }
+}
+
+main>nav{
+    background: var(--tm-admiral, $navColor);
+    margin: 25px 5px;
+}
+main>nav>ul{
+    display: flex;
+    flex-direction: row;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    li{
+        position: relative;
+        a{
+            display: block;
+            padding: 10px 15px;
+            color: $background2;
+            text-decoration: none;
+            font-size: 13px;
+            letter-spacing: 0.5px;
+        }
+        &:hover{
+            background: $secondNavColor;
+        }
+    }
+}
+.dropdown{
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background: #153366;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    min-width: 150px;
+    z-index: 100;
+
+    li a{
+        display: block;
+        padding: 8px 12px;
+        color: $background2;
+        text-decoration: none;
+        font-size: 13px;
+    }
+    li a:hover{
+        background: #1f4b99;
+    }
+}
+main>nav>ul>li:hover .dropdown{
+    display: block;
+}
+
+.competition{
+    margin: 10px 5px;
+    background: $secondNavColor;
+}
+
+.bio{
+    display: flex;
+    flex-direction: column;
+    margin: 10px 5px;
+    background: $background2;
+
+    header{
+        background: $navColor;
+        color: $background2;
+        h2{
+            margin-left: 10px;
+        }
+    }
+
+    .box{
+        display: flex;
+        flex-direction: row;
+
+        .info{
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            margin-left: 10px;
+            width: 50%;
+
+            p{
+                grid-column: 1;
+            }
+            strong{
+                grid-column: 2;
+                align-self: center;
+            }
+        }
+    }
+    .pitch{
+        display: flex;
+        flex-direction: column;
+        width: 50%;
+
+        &__info{
+            display: flex;
+            flex-direction: row;
         }
     }
 }
 
 .playground{
-    position: absolute;
-    width: 300px;
-    height: 400px;
-    background: #1e3a5f;
+    position: relative;
+    width: 600px;
+    height: 500px;
+    margin-right: 5px;
+    margin-bottom: 5px;
+    background-image: url("src/img/pitch.png");
+    background-repeat: no-repeat;
+    background-size: cover;
     border: 2px solid #fff;
 }
 .position{
     position: absolute;
-    width: 14px;
-    height: 14px;
     border-radius: 50%;
     background: #fff;
     display: none;
+}
+
+.transfer{
+    display: flex;
+    flex-direction: column;
+
+    header{
+        background: $navColor;
+        color: $background2;
+        h2{
+            margin-left: 10px;
+        }
+    }
+
+}
+
+.acctual{
+    display: flex;
+    flex-direction: column;
+
+    header{
+        background: $navColor;
+        color: $background2;
+        h2{
+            margin-left: 10px;
+        }
+    }
+
+
+}
+
+.sezon_history{
+    display: flex;
+    flex-direction: column;
+
+    header{
+        background: $navColor;
+        color: $background2;
+        h2{
+            margin-left: 10px;
+        }
+    }
+
+}
+.sezon_history_junior{
+    display: flex;
+    flex-direction: column;
+
+    header{
+        background: $navColor;
+        color: $background2;
+        h2{
+            margin-left: 10px;
+        }
+    }
+
 }
