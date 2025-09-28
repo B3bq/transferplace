@@ -175,6 +175,23 @@ main > nav > ul > li:hover .dropdown {
   flex-direction: row;
 }
 
+.club::before {
+  display: inline-block;
+  vertical-align: middle;
+  content: "";
+  width: 16px;
+  height: 16px;
+  margin-right: 3px;
+  background: url("src/img/echos.png") no-repeat center/contain;
+}
+
+.nationality::before {
+  display: inline-block;
+  vertical-align: middle;
+  content: url("src/img/poland_tp.png")/"Poland";
+  margin-right: 3px;
+}
+
 .playground {
   position: relative;
   width: 600px;
