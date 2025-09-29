@@ -48,7 +48,48 @@
                 <li><a href="#kariera">KARIERA</a></li>
             </ul>
         </nav>
-        <section class="competition" id="wystepy">dane</section>
+        <section class="competition" id="wystepy">
+            <div class="look">
+                <img src="src/img/player.svg" alt="player" width="64px" height="64px">
+                <p>Występy</p>
+            </div>
+            <section class="games">
+                <header>
+                    <div>
+                        <h4 id="league"></h4>
+                        <p id="league_matches"></p>
+                    </div>
+                    <div class="btns">
+                        <button onclick="" id="btn_league" class="active"><img src="src/img/seriaA.png" alt="seriaA" width="64px" height="64px"></button>
+                        <button onabort="" id="btn_puchar"><img src="src/img/pp.jpg" alt="PP" width="64px" height="64px"></button>
+                    </div>
+                </header>
+                <div class="games__view">
+                    <ul>
+                        <li><img src="src/img/pitch.svg" alt="games">Mecze<span id="league_games"></span></li>
+                        <li><img src="src/img/goal.svg" alt="goal">Bramki<span id="league_goal"></span></li>
+                        <li><img src="src/img/assist.svg" alt="assist">Asysty<span id="league_assist"></span></li>
+                    </ul>
+                    <ul>
+                        <li><img src="src/img/yellow.svg" alt="yellow">Żółte kartki <span>0</span></li>
+                        <li><img src="src/img/2cards.svg" alt="2cards">Drugie żółte kartki <span>0</span></li>
+                        <li><img src="src/img/red.svg" alt="red">Czerwone kartki <span>0</span></li>
+                    </ul>
+                </div>
+                <div class="games__view2">
+                    <ul>
+                        <li><img src="src/img/pitch.svg" alt="games">Mecze<span id="puchar_games"></span></li>
+                        <li><img src="src/img/goal.svg" alt="goal">Bramki<span id="puchar_goal"></span></li>
+                        <li><img src="src/img/assist.svg" alt="assist">Asysty<span id="puchar_assist"></span></li>
+                    </ul>
+                    <ul>
+                        <li><img src="src/img/yellow.svg" alt="yellow">Żółte kartki<span>0</span></li>
+                        <li><img src="src/img/2cards.svg" alt="2cards">Drugie żółte kartki <span>0</span></li>
+                        <li><img src="src/img/red.svg" alt="red">Czerwone kartki <span>0</span></li>
+                    </ul>
+                </div>
+            </section>
+        </section>
         <section class="bio" id="profil">
             <header>
                 <h2>DANE ZAWODNIKA</h2>
@@ -68,15 +109,15 @@
                     <p>Pozycja:</p>
                     <strong id="position_bio"></strong>
                     <p>Noga:</p>
-                    <strong class="leg">Obie</strong>
+                    <strong>Obie</strong>
                     <p>Obecny klub:</p>
                     <strong class="club">Echo Biesowice</strong>
                     <p>W druzynie od:</p>
                     <strong>1 sie 2020</strong>
                     <p>Portale społecznościowe:</p>
                     <div>
-                        <a href=""><img src="src/img/x.svg" alt="x" width="20px" height="20px"></a>
-                        <a href=""><img src="src/img/instagram.svg" alt="ig" width="20px" height="20px"></a>
+                        <a href="https://x.com/S3Qu9" target="_blank"><img src="src/img/x.svg" alt="x" width="20px" height="20px"></a>
+                        <a href="https://www.instagram.com/s_kaca9" target="_blank"><img src="src/img/instagram.svg" alt="ig" width="20px" height="20px"></a>
                     </div>
                 </section>
                 <section class="pitch">
@@ -134,27 +175,26 @@
                     <th><img src="src/img/assist.svg" alt="assist"></th>
                     <th><img src="src/img/min.svg" alt="minut"></th>
                 </tr>
-                <!--pomysl, zeby to sie robilo automatycznie JS-->
                 <tr>
                     <td>A Klasa</td>
-                    <td>7</td>
-                    <td>1</td>
-                    <td>-</td>
-                    <td>657'</td>
+                    <td class="lacznie_games" id="l_games">7</td>
+                    <td class="lacznie_goals" id="l_goal">1</td>
+                    <td class="lacznie_assist" id="l_assist">-</td>
+                    <td class="lacznie_min">657'</td>
                 </tr>
                 <tr>
                     <td>Puchar Polski</td>
-                    <td>1</td>
-                    <td>-</td>
-                    <td>-</td>
-                    <td>93'</td>
+                    <td class="lacznie_games" id="p_games">1</td>
+                    <td class="lacznie_goals" id="p_goal">-</td>
+                    <td class="lacznie_assist" id="p_assist">-</td>
+                    <td class="lacznie_min">93'</td>
                 </tr>
                 <tr>
                     <th>Łącznie</th>
-                    <th></th>
-                    <th></th>
-                    <th></th>
-                    <th></th>
+                    <th id="lacznie_games"></th>
+                    <th id="lacznie_goals"></th>
+                    <th id="lacznie_assist"></th>
+                    <th id="lacznie_min"></th>
                 </tr>
             </table>
         </section>
@@ -344,6 +384,9 @@
             </table>
         </section>
     </main>
-    <footer></footer>
+    <footer>
+        <p>Cała strona jest zrobiona tylko dla wizualnych kwiestii przetrzymywania osobistych statystyk</p>
+        <a href=""><img src="src/img/github-brands.svg" alt="git"></a>
+    </footer>
 </body>
 </html>

@@ -22,6 +22,22 @@ body {
   box-shadow: inset;
 }
 
+footer {
+  background: #00193f;
+  color: #fff;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+footer p {
+  margin-left: 10px;
+}
+footer img {
+  margin: 15px;
+  width: 64px;
+  height: 64px;
+}
+
 body > header {
   display: grid;
   grid-template-columns: repeat(8, 1fr);
@@ -131,8 +147,72 @@ main > nav > ul > li:hover .dropdown {
 }
 
 .competition {
-  margin: 10px 5px;
+  display: flex;
+  flex-direction: row;
+  margin: 10px 350px;
+  background: #fff;
+}
+.competition .look {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   background: #152f57;
+  width: 20%;
+  color: #fff;
+}
+.competition .games {
+  display: flex;
+  flex-direction: column;
+}
+.competition .games header {
+  display: flex;
+  flex-direction: row;
+}
+.competition .games header div {
+  flex-direction: column;
+  width: 50%;
+}
+.competition .games header .btns {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  width: 50%;
+}
+.competition .games header .btns button {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+}
+.competition .games header .btns .active {
+  border-bottom: 5px solid #5ca6ff;
+}
+.competition .games__view, .competition .games__view2 {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+}
+.competition .games__view img, .competition .games__view2 img {
+  width: 20px;
+  height: 20px;
+}
+.competition .games__view ul, .competition .games__view2 ul {
+  list-style: none;
+  flex-direction: column;
+}
+.competition .games__view ul li, .competition .games__view2 ul li {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 10px 0px;
+}
+.competition .games__view ul span, .competition .games__view2 ul span {
+  margin-left: 5px;
+}
+.competition .games__view {
+  display: grid;
+}
+.competition .games__view2 {
+  display: none;
 }
 
 .bio {
@@ -186,7 +266,7 @@ main > nav > ul > li:hover .dropdown {
   content: "";
   display: block;
   position: absolute;
-  top: 495px;
+  top: 690px;
   left: 43.9%;
   width: 2px;
   height: 534px;

@@ -108,8 +108,78 @@ main>nav>ul>li:hover .dropdown{
 }
 
 .competition{
-    margin: 10px 5px;
-    background: $secondNavColor;
+    display: flex;
+    flex-direction: row;
+    margin: 10px 350px;
+    background: $background2;
+
+    .look{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        background: $secondNavColor;
+        width: 20%;
+        color: #fff;
+    }
+
+    .games{
+        display: flex;
+        flex-direction: column;
+
+        
+        header{
+            display: flex;
+            flex-direction: row;
+
+            div{
+                flex-direction: column;
+                width: 50%;
+            }
+            .btns{
+                display: flex;
+                flex-direction: row;
+                justify-content: center;
+                width: 50%;
+
+                button{
+                    background: transparent;
+                    border: none;
+                    cursor: pointer;
+                }
+                .active{
+                    border-bottom: 5px solid $buttonBorder;
+                }
+            }
+        }
+        &__view, &__view2{
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            img{
+                width: 20px;
+                height: 20px;
+            }
+            ul{
+                list-style: none;
+                flex-direction: column;
+                li{
+                    display: flex;
+                    align-items: center;
+                    justify-content: space-between;
+                    margin: 10px 0px;
+                }
+                span{
+                    margin-left: 5px;
+                }
+            }
+        }
+        &__view{
+            display: grid;
+        }
+        &__view2{
+            display: none;
+        }
+    }
 }
 
 .bio{
@@ -169,7 +239,7 @@ main>nav>ul>li:hover .dropdown{
             content: '';
             display: block;
             position: absolute;
-            top: 495px;
+            top: 690px;
             left: 43.9%;
             width: 2px;
             height: 534px;

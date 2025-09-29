@@ -21,3 +21,20 @@ body{
     width: 1200px;
     box-shadow: inset;
 }
+
+footer{
+    background: $navColor;
+    color: $background2;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+    p{
+        margin-left: 10px;
+    }
+    img{
+        margin: 15px;
+        width: 64px;
+        height: 64px;
+    }
+}

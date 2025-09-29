@@ -10,6 +10,11 @@ document.addEventListener("DOMContentLoaded", () => {
     return total;
   }
 
+  document.getElementById("lacznie_games").textContent = sumColumn("lacznie_games");
+  document.getElementById("lacznie_goals").textContent = sumColumn("lacznie_goals");
+  document.getElementById("lacznie_assist").textContent = sumColumn("lacznie_assist");
+  document.getElementById("lacznie_min").textContent = sumColumn("lacznie_min");
+
   document.getElementById("senior_match").textContent = sumColumn("senior_match");
   document.getElementById("senior_goal").textContent = sumColumn("senior_goal");
   document.getElementById("senior_assist").textContent = sumColumn("senior_assist");
@@ -140,4 +145,66 @@ document.addEventListener("DOMContentLoaded", () => {
       el2.textContent = raw + ` (${age})`;
     }
   }
+  
+
+  // competition data
+  document.getElementById("league_games").innerHTML = document.getElementById("l_games").textContent.trim();
+  const l_goal = document.getElementById("l_goal").textContent.trim();
+  if(l_goal !== '-') {  
+    document.getElementById("league_goal").innerHTML = document.getElementById("l_goal").textContent.trim();
+  }else{
+    document.getElementById("league_goal").innerHTML = "0";
+  }
+
+  const l_assist = document.getElementById("l_assist").textContent.trim();
+  if(l_assist !== '-') {  
+    document.getElementById("league_assist").innerHTML = document.getElementById("l_assist").textContent.trim();
+  }else{
+    document.getElementById("league_assist").innerHTML = "0";
+  }
+
+  document.getElementById("puchar_games").innerHTML = document.getElementById("p_games").textContent.trim();
+  const p_goal = document.getElementById("p_goal").textContent.trim();
+  if(p_goal !== '-') {  
+    document.getElementById("puchar_goal").innerHTML = document.getElementById("p_goal").textContent.trim();
+  }else{
+    document.getElementById("puchar_goal").innerHTML = "0";
+  }
+
+  const p_assist = document.getElementById("p_assist").textContent.trim();
+  if(p_assist !== '-') {  
+    document.getElementById("puchar_assist").innerHTML = document.getElementById("p_assist").textContent.trim();
+  }else{
+    document.getElementById("puchar_assist").innerHTML = "0";
+  }
+
+  // switch competition
+  const btnLeague = document.getElementById("btn_league");
+  const btnPuchar = document.getElementById("btn_puchar");
+  const viewLeague = document.querySelector(".games__view");
+  const viewPuchar = document.querySelector(".games__view2");
+  const leagueName = document.getElementById("league");
+  const leagueMatches = document.getElementById("league_matches");
+
+  function showLeague() {
+    btnLeague.classList.add("active");
+    btnPuchar.classList.remove("active");
+    viewLeague.style.display = "grid";
+    viewPuchar.style.display = "none";
+    leagueName.innerHTML = "A Klasa";
+    leagueMatches.innerHTML = "7 możliwych meczów";
+  }
+
+  function showPuchar() {
+    btnPuchar.classList.add("active");
+    btnLeague.classList.remove("active");
+    viewPuchar.style.display = "grid";
+    viewLeague.style.display = "none";
+    leagueName.innerHTML = "Puchar Polski";
+    leagueMatches.innerHTML = "1 możliwych meczów";
+  }
+
+  showLeague(); //default show league
+  btnLeague.addEventListener("click", showLeague);
+  btnPuchar.addEventListener("click", showPuchar);
 });
