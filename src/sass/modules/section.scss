@@ -198,6 +198,7 @@ main>nav>ul>li:hover .dropdown{
 
             div{
                 flex-direction: column;
+                margin-left: 5px;
                 width: 50%;
                 @media (max-width: $mobileWidth) {
                     display: flex;

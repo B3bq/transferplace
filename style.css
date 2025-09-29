@@ -257,6 +257,7 @@ main > nav > ul > li:hover .dropdown {
 }
 .competition .games header div {
   flex-direction: column;
+  margin-left: 5px;
   width: 50%;
 }
 @media (max-width: 768px) {
