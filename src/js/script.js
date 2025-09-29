@@ -42,8 +42,17 @@ document.addEventListener("DOMContentLoaded", () => {
 
   visible.sort((a,b) => b.val - a.val);
 
-  const maxSize = 70;
-  const minSize = 25;
+  const media = screen.width;
+  let maxSize = 0;
+  let minSize = 0;
+
+  if(media>768){
+    maxSize = 70;
+    minSize = 25;
+  }else{
+    maxSize = 40;
+    minSize = 16;
+  }
   const step = visible.length > 1 ? (maxSize - minSize) / (visible.length - 1) : 0;
 
   visible.forEach((item, index) => {
