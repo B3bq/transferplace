@@ -134,7 +134,7 @@ main>nav>ul>li:hover .dropdown{
             display: grid;
             grid-template-columns: repeat(2, 1fr);
             margin-left: 10px;
-            width: 50%;
+            width: 40%;
 
             p{
                 grid-column: 1;
@@ -148,11 +148,32 @@ main>nav>ul>li:hover .dropdown{
     .pitch{
         display: flex;
         flex-direction: column;
-        width: 50%;
+        width: 60%;
+
+        h3{
+            background: $otherNavTag;
+            padding: 5px;
+            margin: 0;
+        }
 
         &__info{
             display: flex;
             flex-direction: row;
+
+            &-text{
+                text-align: center;
+            }
+        }
+
+        &::before{
+            content: '';
+            display: block;
+            position: absolute;
+            top: 495px;
+            left: 43.9%;
+            width: 2px;
+            height: 534px;
+            background: $rootColor;
         }
     }
 }
@@ -191,9 +212,36 @@ main>nav>ul>li:hover .dropdown{
     display: none;
 }
 
+table{
+    background: $background2;
+    margin: 5px 150px;
+    text-align: center;
+    border-color: $rootColor;
+    border-collapse: collapse;
+    border-spacing: 0;
+    border: 1px solid $rootColor;
+}
+th{
+    background: $navTable;
+    border: 1px solid $rootColor;
+    font-weight:  bold;
+    padding: 3px;
+    
+    img{
+        width: 17px;
+        height: 17px;
+        padding-top: 3px;
+    }
+}
+td{
+    border: 1px solid $rootColor;
+    padding: 3px;
+}
+
 .transfer{
     display: flex;
     flex-direction: column;
+    margin: 10px 5px;
 
     header{
         background: $navColor;
@@ -207,6 +255,7 @@ main>nav>ul>li:hover .dropdown{
 .acctual{
     display: flex;
     flex-direction: column;
+    margin: 10px 5px;
 
     header{
         background: $navColor;
@@ -222,6 +271,7 @@ main>nav>ul>li:hover .dropdown{
 .sezon_history{
     display: flex;
     flex-direction: column;
+    margin: 10px 5px;
 
     header{
         background: $navColor;
@@ -235,6 +285,7 @@ main>nav>ul>li:hover .dropdown{
 .sezon_history_junior{
     display: flex;
     flex-direction: column;
+    margin: 10px 5px;
 
     header{
         background: $navColor;

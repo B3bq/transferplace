@@ -156,7 +156,7 @@ main > nav > ul > li:hover .dropdown {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   margin-left: 10px;
-  width: 50%;
+  width: 40%;
 }
 .bio .box .info p {
   grid-column: 1;
@@ -168,11 +168,29 @@ main > nav > ul > li:hover .dropdown {
 .bio .pitch {
   display: flex;
   flex-direction: column;
-  width: 50%;
+  width: 60%;
+}
+.bio .pitch h3 {
+  background: #d2e3ed;
+  padding: 5px;
+  margin: 0;
 }
 .bio .pitch__info {
   display: flex;
   flex-direction: row;
+}
+.bio .pitch__info-text {
+  text-align: center;
+}
+.bio .pitch::before {
+  content: "";
+  display: block;
+  position: absolute;
+  top: 495px;
+  left: 43.9%;
+  width: 2px;
+  height: 534px;
+  background: #b3b3b3;
 }
 
 .club::before {
@@ -211,9 +229,37 @@ main > nav > ul > li:hover .dropdown {
   display: none;
 }
 
+table {
+  background: #fff;
+  margin: 5px 150px;
+  text-align: center;
+  border-color: #b3b3b3;
+  border-collapse: collapse;
+  border-spacing: 0;
+  border: 1px solid #b3b3b3;
+}
+
+th {
+  background: #f2f2f2;
+  border: 1px solid #b3b3b3;
+  font-weight: bold;
+  padding: 3px;
+}
+th img {
+  width: 17px;
+  height: 17px;
+  padding-top: 3px;
+}
+
+td {
+  border: 1px solid #b3b3b3;
+  padding: 3px;
+}
+
 .transfer {
   display: flex;
   flex-direction: column;
+  margin: 10px 5px;
 }
 .transfer header {
   background: #00193f;
@@ -226,6 +272,7 @@ main > nav > ul > li:hover .dropdown {
 .acctual {
   display: flex;
   flex-direction: column;
+  margin: 10px 5px;
 }
 .acctual header {
   background: #00193f;
@@ -238,6 +285,7 @@ main > nav > ul > li:hover .dropdown {
 .sezon_history {
   display: flex;
   flex-direction: column;
+  margin: 10px 5px;
 }
 .sezon_history header {
   background: #00193f;
@@ -250,6 +298,7 @@ main > nav > ul > li:hover .dropdown {
 .sezon_history_junior {
   display: flex;
   flex-direction: column;
+  margin: 10px 5px;
 }
 .sezon_history_junior header {
   background: #00193f;

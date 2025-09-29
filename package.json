@@ -1,15 +1,13 @@
 {
   "name": "transferplace",
   "version": "1.0.0",
-  "description": "This is the page with my football satistics. The name of the project is especially similar to popular web footabll service TransferMarkt.",
-  "license": "ISC",
-  "author": "",
-  "type": "commonjs",
-  "main": "index.js",
+  "description": "",
+  "main": "script.js",
   "scripts": {
-    "test": "sass --watch src/sass/main.scss:style.css"
+    "sass": "sass --watch src/sass/main.scss:style.css"
   },
-  "devDependencies": {
-    "sass": "^1.93.2"
-  }
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs"
 }
