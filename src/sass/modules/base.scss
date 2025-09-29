@@ -19,7 +19,10 @@ body{
     align-content: center;
     min-height: 100dvh;
     width: 1200px;
-    box-shadow: inset;
+
+    @media (max-width: $mobileWidth) {
+        width: 100%;
+    }
 }
 
 footer{
@@ -36,5 +39,10 @@ footer{
         margin: 15px;
         width: 64px;
         height: 64px;
+
+        @media (max-width: $mobileWidth) {
+            width: 32px;
+            height: 32px;
+        }
     }
 }
