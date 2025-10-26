@@ -201,7 +201,7 @@ document.addEventListener("DOMContentLoaded", () => {
     viewLeague.style.display = "grid";
     viewPuchar.style.display = "none";
     leagueName.innerHTML = "A Klasa";
-    leagueMatches.innerHTML = "10 możliwych meczów";
+    leagueMatches.innerHTML = "11 możliwych meczów";
   }
 
   function showPuchar() {
