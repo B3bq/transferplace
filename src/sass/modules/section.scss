@@ -95,6 +95,8 @@ body>header{
 main>nav{
     background: var(--tm-admiral, $navColor);
     margin: 25px 5px;
+    position: relative;
+    z-index: 1;
 }
 main>nav>ul{
     display: flex;
@@ -142,6 +144,112 @@ main>nav>ul{
 }
 main>nav>ul>li:hover .dropdown{
     display: block;
+}
+.nav__mobile-top{
+    display: none;
+}
+
+@media (max-width: $mobileWidth) {
+  main > nav {
+    margin: 0;
+    position: sticky;
+    top: 0;
+    z-index: 200;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+  }
+
+  .nav__mobile-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 16px;
+  }
+
+  .nav__mobile-top span {
+    color: #fff;
+    font-size: 15px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  .nav__toggle {
+    appearance: none;
+    border: 1px solid rgba(255, 255, 255, 0.8);
+    background: transparent;
+    color: #fff;
+    padding: 10px 16px;
+    border-radius: 999px;
+    font-size: 14px;
+    cursor: pointer;
+  }
+
+  .nav__overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.35);
+    z-index: 205;
+    opacity: 0;
+    transition: opacity 0.2s ease;
+    pointer-events: none;
+  }
+
+  .main-nav.open .nav__overlay {
+    display: block;
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  main > nav > ul {
+    position: fixed;
+    top: 0;
+    left: -100%;
+    width: 260px;
+    max-width: 80vw;
+    height: 100vh;
+    overflow-y: auto;
+    z-index: 210;
+    flex-direction: column;
+    background: #00193f;
+    padding: 70px 0 20px 0;
+    transition: left 0.25s ease-in-out;
+  }
+
+  main > nav.open > ul {
+    left: 0;
+  }
+
+  main > nav > ul li {
+    width: 100%;
+  }
+
+  main > nav > ul li a {
+    padding: 16px 20px;
+    font-size: 15px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  }
+
+  .dropdown {
+    position: static;
+    display: none;
+    background: transparent;
+    min-width: auto;
+    padding-left: 0;
+  }
+
+  .main-nav.open .dropdown {
+    display: block;
+  }
+
+  .dropdown li a {
+    padding: 10px 30px;
+    background: transparent;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  }
+
+  main > nav > ul li:hover {
+    background: none;
+  }
 }
 
 .competition{
@@ -373,6 +481,24 @@ main>nav>ul>li:hover .dropdown{
     height: 16px;
     margin-right: 3px;
     background: url("src/img/echos.png") no-repeat center / contain;
+}
+.club2::before{
+    display: inline-block;
+    vertical-align: middle;
+    content: '';
+    width: 16px;
+    height: 16px;
+    margin-right: 3px;
+    background: url("src/img/granit.png") no-repeat center / contain;
+}
+.sticker::before{
+    display: inline-block;
+    vertical-align: middle;
+    content: '';
+    width: 16px;
+    height: 16px;
+    margin-right: 3px;
+    background: url("src/img/vliga.png") no-repeat center / contain;
 }
 .nationality::before{
     display: inline-block;

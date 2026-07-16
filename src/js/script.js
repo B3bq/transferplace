@@ -200,8 +200,8 @@ document.addEventListener("DOMContentLoaded", () => {
     btnPuchar.classList.remove("active");
     viewLeague.style.display = "grid";
     viewPuchar.style.display = "none";
-    leagueName.innerHTML = "A Klasa";
-    leagueMatches.innerHTML = "24 możliwych meczów";
+    leagueName.innerHTML = "V liga";
+    leagueMatches.innerHTML = "0 możliwych meczów";
   }
 
   function showPuchar() {
@@ -210,10 +210,37 @@ document.addEventListener("DOMContentLoaded", () => {
     viewPuchar.style.display = "grid";
     viewLeague.style.display = "none";
     leagueName.innerHTML = "Puchar Polski";
-    leagueMatches.innerHTML = "1 możliwych meczów";
+    leagueMatches.innerHTML = "0 możliwych meczów";
   }
 
   showLeague(); //default show league
   btnLeague.addEventListener("click", showLeague);
   btnPuchar.addEventListener("click", showPuchar);
+
+  const nav = document.querySelector('.main-nav');
+  const navToggle = document.querySelector('.nav__toggle');
+  const navOverlay = document.querySelector('.nav__overlay');
+
+  function toggleMobileNav() {
+    const isOpen = nav.classList.toggle('open');
+    navToggle.setAttribute('aria-expanded', String(isOpen));
+    navOverlay.setAttribute('aria-hidden', String(!isOpen));
+    navToggle.textContent = isOpen ? 'Zamknij' : 'Otwórz';
+  }
+
+  if (navToggle) {
+    navToggle.addEventListener('click', toggleMobileNav);
+  }
+
+  if (navOverlay) {
+    navOverlay.addEventListener('click', toggleMobileNav);
+  }
+
+  document.querySelectorAll('.main-nav ul li a').forEach(link => {
+    link.addEventListener('click', () => {
+      if (nav.classList.contains('open')) {
+        toggleMobileNav();
+      }
+    });
+  });
 });

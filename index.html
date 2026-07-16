@@ -11,16 +11,16 @@
 </head>
 <body>
     <header>
-        <h1><span>#4</span>Sebastian<strong>Kaca</strong></h1>
+        <h1><span>#4</span> Sebastian <strong>Kaca</strong></h1>
         <img src="" alt="face">
         <div class="trophy"></div>
         <div class="club__data">
-            <img src="src/img/echo.jpg" alt="club">
+            <img src="src/img/granit.png" alt="club">
             <div>
-                <h4>Echo Biesowice</h4>
-                <h6>A Klasa</h6>
-                <p>Szczebel ligi: <span>7.liga</span></p>
-                <p>W drużynie od: <span>1 sie 2020</span></p>
+                <h4>Granit Kończewo</h4>
+                <h6 class="sticker">V liga</h6>
+                <p>Szczebel ligi: <span>6.liga</span></p>
+                <p>W drużynie od: <span>16 sie 2026</span></p>
             </div>
         </div>
         <div class="data__list">
@@ -36,11 +36,20 @@
         </div>
     </header>
     <main>
-        <nav>
-            <ul>
+        <nav class="main-nav">
+            <div class="nav__mobile-top">
+                <span>Subnawigacja</span>
+                <button class="nav__toggle" type="button" aria-expanded="false" aria-controls="navMobileMenu">
+                    Otwórz
+                </button>
+            </div>
+            <div class="nav__overlay" aria-hidden="true"></div>
+            <ul id="navMobileMenu">
                 <li><a href="#profil">PROFIL</a></li>
-                <li><a href="#wystepy">WYSTĘPY</a>
+                <li>
+                    <a href="#wystepy">WYSTĘPY</a>
                     <ul class="dropdown">
+                        <li><a href="details.html">Szczegóły</a></li>
                         <li><a href="#senior">Senior</a></li>
                         <li><a href="#junior">Junior</a></li>
                     </ul>
@@ -61,7 +70,7 @@
                         <p id="league_matches"></p>
                     </div>
                     <div class="btns">
-                        <button id="btn_league" class="active"><img src="src/img/seriaA.png" alt="seriaA" width="64px" height="64px"></button>
+                        <button id="btn_league" class="active"><img src="src/img/vliga.png" alt="seriaA" width="64px" height="64px"></button>
                         <button id="btn_puchar"><img src="src/img/pp.jpg" alt="PP" width="64px" height="64px"></button>
                     </div>
                 </header>
@@ -112,9 +121,9 @@
                     <p>Noga:</p>
                     <strong>Obie</strong>
                     <p>Obecny klub:</p>
-                    <strong class="club">Echo Biesowice</strong>
+                    <strong class="club2">Granit Kończewo</strong>
                     <p>W druzynie od:</p>
-                    <strong>1 sie 2020</strong>
+                    <strong>16 sie 2026</strong>
                     <p>Portale społecznościowe:</p>
                     <div>
                         <a href="https://x.com/S3Qu9" target="_blank"><img src="src/img/x.svg" alt="x" width="20px" height="20px"></a>
@@ -154,11 +163,19 @@
             <table>
                 <tr>
                     <th>Sezon</th>
+                    <td>Data</td>
                     <th>Klub oddający</th>
                     <th>Klub pozyskujący</th>
                 </tr>
                 <tr>
+                    <td>26/27</td>
+                    <td>16.07.2026</td>
+                    <td class="club">Echo Biesowice</td>
+                    <td class="club2">Granit Kończewo</td>
+                </tr>
+                <tr>
                     <td>20/21</td>
+                    <td>01.07.2020</td>
                     <td class="club">Echo Biesowice C1</td>
                     <td class="club">Echo Biesowice</td>
                 </tr>
@@ -177,18 +194,18 @@
                     <th><img src="src/img/min.svg" alt="minut"></th>
                 </tr>
                 <tr>
-                    <td>A Klasa</td>
-                    <td class="lacznie_games" id="l_games">24</td>
-                    <td class="lacznie_goals" id="l_goal">1</td>
-                    <td class="lacznie_assist" id="l_assist">1</td>
-                    <td class="lacznie_min">2230'</td>
+                    <td>V liga</td>
+                    <td class="lacznie_games" id="l_games">-</td>
+                    <td class="lacznie_goals" id="l_goal">-</td>
+                    <td class="lacznie_assist" id="l_assist">-</td>
+                    <td class="lacznie_min">-'</td>
                 </tr>
                 <tr>
                     <td>Puchar Polski</td>
-                    <td class="lacznie_games" id="p_games">1</td>
+                    <td class="lacznie_games" id="p_games">-</td>
                     <td class="lacznie_goals" id="p_goal">-</td>
                     <td class="lacznie_assist" id="p_assist">-</td>
-                    <td class="lacznie_min">93'</td>
+                    <td class="lacznie_min">-'</td>
                 </tr>
                 <tr>
                     <th>Łącznie</th>
@@ -223,6 +240,17 @@
                     <td class="all_assist">4</td>
                     <td class="all_own">1</td>
                     <td class="all_yellow">1</td>
+                    <td class="all_red">-</td>
+                    <td>-</td>
+                </tr>
+                <tr>
+                    <td>Sparing</td>
+                    <td class="club2">Granit Kończewo</td>
+                    <td class="all_match">-</td>
+                    <td class="all_goal">-</td>
+                    <td class="all_assist">-</td>
+                    <td class="all_own">-</td>
+                    <td class="all_yellow">-</td>
                     <td class="all_red">-</td>
                     <td>-</td>
                 </tr>
@@ -291,6 +319,17 @@
                     <td class="senior_yellow all_yellow">-</td>
                     <td class="senior_red all_red">-</td>
                     <td class="senior_min">2323'</td>
+                </tr>
+                <tr>
+                    <td>26/27</td>
+                    <td class="club2">Granit Kończewo</td>
+                    <td class="senior_match all_match">-</td>
+                    <td class="senior_goal all_goal">-</td>
+                    <td class="senior_assist all_assist">-</td>
+                    <td class="senior_own all_own">-</td>
+                    <td class="senior_yellow all_yellow">-</td>
+                    <td class="senior_red all_red">-</td>
+                    <td class="senior_min">0'</td>
                 </tr>
                 <tr>
                     <th colspan="2">Łącznie oficialne</th>
