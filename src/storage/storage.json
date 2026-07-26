@@ -1,0 +1,160 @@
+{
+  "pitch": [
+    {"code": "po", "name": "Prawy obrońca", "games": 94},
+    {"code": "so", "name": "Środkowy obrońca", "games": 1},
+    {"code": "lo", "name": "Lewy obrońca", "games": 9},
+    {"code": "pp", "name": "Prawy pomocnik", "games": 34},
+    {"code": "spd", "name": "Środkowy pomocnik defensywny", "games": 0},
+    {"code": "sp", "name": "Środkowy pomocnik", "games": 1},
+    {"code": "spo", "name": "Środkowy pomocnik ofensywny", "games": 0},
+    {"code": "lp", "name": "Lewy pomocnik", "games": 40},
+    {"code": "ps", "name": "Prawy skrzydłowy", "games": 0},
+    {"code": "n", "name": "Napastnik", "games": 1},
+    {"code": "ls", "name": "Lewy skrzydłowy", "games": 0}
+  ],
+  "actual": {
+    "liga": {
+      "games": 0,
+      "goals": 0,
+      "assists": 0,
+      "minutes": 0
+    },
+    "puchar": {
+      "games": 0,
+      "goals": 0,
+      "assists": 0,
+      "minutes": 0
+    }
+  },
+  "competitions": {
+    "okregowka": {
+      "games": 27,
+      "goals": 1,
+      "assists": null,
+      "owngoal": null,
+      "yellow": null,
+      "red": null
+    },
+    "aklasa": {
+      "games": 105,
+      "goals": 7,
+      "assists": 6,
+      "owngoal": 1,
+      "yellow": 2,
+      "red": null
+    },
+    "puchar": {
+      "games": 2,
+      "goals": null,
+      "assists": null,
+      "owngoal": null,
+      "yellow": null,
+      "red": null
+    }
+  },
+  "seasons": {
+    "sparings": [
+      {
+        "season": "Sparing",
+        "club": "Echo Biesowice",
+        "games": 44,
+        "goals": 5,
+        "assists": 4,
+        "owngoal": 1,
+        "yellow": 1,
+        "red": null,
+        "minutes": null
+      },
+      {
+        "season": "Sparing",
+        "club": "Granit Kończewo",
+        "games": 2,
+        "goals": null,
+        "assists": null,
+        "owngoal": null,
+        "yellow": null,
+        "red": null,
+        "minutes": null
+      }
+    ],
+    "senior": [
+      {
+        "season": "20/21",
+        "club": "Echo Biesowice",
+        "games": 28,
+        "goals": 1,
+        "assists": null,
+        "owngoal": null,
+        "yellow": null,
+        "red": null,
+        "minutes": "1007"
+      },
+      {
+        "season": "21/22",
+        "club": "Echo Biesowice",
+        "games": 16,
+        "goals": 1,
+        "assists": 3,
+        "owngoal": null,
+        "yellow": 1,
+        "red": null,
+        "minutes": "892"
+      },
+      {
+        "season": "22/23",
+        "club": "Echo Biesowice",
+        "games": 20,
+        "goals": 3,
+        "assists": 1,
+        "owngoal": null,
+        "yellow": null,
+        "red": null,
+        "minutes": "1744"
+      },
+      {
+        "season": "23/24",
+        "club": "Echo Biesowice",
+        "games": 22,
+        "goals": 2,
+        "assists": null,
+        "owngoal": null,
+        "yellow": null,
+        "red": null,
+        "minutes": "2075"
+      },
+      {
+        "season": "24/25",
+        "club": "Echo Biesowice",
+        "games": 23,
+        "goals": null,
+        "assists": 1,
+        "owngoal": null,
+        "yellow": 1,
+        "red": null,
+        "minutes": "2015"
+      },
+      {
+        "season": "25/26",
+        "club": "Echo Biesowice",
+        "games": 25,
+        "goals": 1,
+        "assists": 1,
+        "owngoal": 1,
+        "yellow": null,
+        "red": null,
+        "minutes": "2323"
+      },
+      {
+        "season": "26/27",
+        "club": "Granit Kończewo",
+        "games": null,
+        "goals": null,
+        "assists": null,
+        "owngoal": null,
+        "yellow": null,
+        "red": null,
+        "minutes": "0"
+      }
+    ]
+  }
+}

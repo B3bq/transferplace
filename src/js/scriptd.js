@@ -9,11 +9,6 @@ document.addEventListener("DOMContentLoaded", ()=>{
         });
         return total;
     }
-    
-    document.getElementById("lacznie_games").textContent = sumColumn("lacznie_games");
-    document.getElementById("lacznie_goals").textContent = sumColumn("lacznie_goals");
-    document.getElementById("lacznie_assist").textContent = sumColumn("lacznie_assist");
-    document.getElementById("lacznie_min").textContent = sumColumn("lacznie_min");
 
     const positions = Array.from(document.querySelectorAll(".position"));
 
@@ -156,4 +151,297 @@ document.addEventListener("DOMContentLoaded", ()=>{
       }
     });
   });
+
+  // Funkcja generująca wiersze tabeli pozycji z danych JSON
+  function generatePositionsTable(selector, pitchData) {
+    const tbody = document.querySelector(selector);
+    if (!tbody) return;
+    tbody.innerHTML = '';
+
+    pitchData.forEach(pos => {
+      const tr = document.createElement('tr');
+
+      const tdName = document.createElement('td');
+      tdName.textContent = pos.name || pos.code;
+
+      const tdGames = document.createElement('td');
+      tdGames.textContent = (pos.games === null || pos.games === undefined) ? '-' : (pos.games === 0 ? '0' : pos.games);
+
+      const tdGoals = document.createElement('td');
+      tdGoals.textContent = (pos.goals === null || pos.goals === undefined) ? '-' : (pos.goals === 0 ? '0' : pos.goals);
+
+      const tdAssists = document.createElement('td');
+      tdAssists.textContent = (pos.assists === null || pos.assists === undefined) ? '-' : (pos.assists === 0 ? '0' : pos.assists);
+
+      tr.appendChild(tdName);
+      tr.appendChild(tdGames);
+      tr.appendChild(tdGoals);
+      tr.appendChild(tdAssists);
+
+      tbody.appendChild(tr);
+    });
+  }
+  
+  // Ładowanie statystyk z JSON
+  async function loadStats() {
+    try {
+      const response = await fetch('src/storage/storage.json');
+      const data = await response.json();
+      
+      // Ładowanie statystyk pozycji
+      const pitchData = data.pitch;
+      if (!pitchData || !Array.isArray(pitchData)) {
+        console.error('Brak danych pitch w JSON');
+        return;
+      }
+
+      // Mapa kodów pozycji na dane
+      const positionMap = {};
+      pitchData.forEach(pos => {
+        positionMap[pos.code] = pos;
+      });
+
+      // Aktualizowanie data-value dla divów pozycji
+      document.querySelectorAll('.position').forEach(el => {
+        const code = el.classList[1]; // Drugi class to kod pozycji
+        if (positionMap[code]) {
+          el.dataset.value = positionMap[code].games;
+          el.dataset.position = positionMap[code].name;
+        }
+      });
+      // Generuj tabelę pozycji z danych pitch
+      generatePositionsTable('#positions_table', pitchData);
+
+      // Przeliczenie widocznych pozycji
+      const visiblePositions = Array.from(document.querySelectorAll('.position'))
+        .map(e => ({e, val: parseInt(e.dataset.value, 10) || 0}))
+        .filter(x => x.val >= 50)
+        .sort((a, b) => b.val - a.val);
+
+      const media = screen.width;
+      let maxSize = media > 768 ? 70 : 40;
+      let minSize = media > 768 ? 25 : 16;
+      const step = visiblePositions.length > 1 ? (maxSize - minSize) / (visiblePositions.length - 1) : 0;
+
+      visiblePositions.forEach((item, idx) => {
+        const size = Math.round(maxSize - idx * step);
+        item.e.style.display = 'block';
+        item.e.style.width = size + 'px';
+        item.e.style.height = size + 'px';
+      });
+
+      // Ukrycie pozostałych pozycji
+      document.querySelectorAll('.position').forEach(e => {
+        if (!visiblePositions.find(vp => vp.e === e)) {
+          e.style.display = 'none';
+        }
+      });
+
+      // Aktualizowanie głównej pozycji
+      const allSpots = Array.from(document.querySelectorAll('.position'))
+        .sort((a, b) => b.dataset.value - a.dataset.value);
+      
+      if (allSpots.length > 0) {
+        const mainPos = allSpots[0];
+        const altPositions = allSpots.filter(e => e !== mainPos && parseInt(e.dataset.value, 10) >= 50);
+        
+        if (document.getElementById('position')) {
+          document.getElementById('position').textContent = mainPos.dataset.position || '';
+        }
+        if (document.getElementById('main_position')) {
+          document.getElementById('main_position').textContent = mainPos.dataset.position || '';
+        }
+        if (document.getElementById('alt_position')) {
+          document.getElementById('alt_position').textContent = altPositions.map(e => e.dataset.position).join(', ');
+        }
+      }
+
+      // Wygeneruj tabelę wyników na klub (tylko senior - bez sparingów)
+      if (data.seasons && Array.isArray(data.seasons.senior)) {
+        generateClubTable(document.querySelectorAll('.sezon_history table')[0], data.seasons.senior);
+      }
+
+      // Pobierz dodatkowe dane konkurencji i wygeneruj tabelę "BILANS WEDŁUG ROZGRYWEK"
+      try {
+        const resp2 = await fetch('src/storage/storage.json');
+        const compData = await resp2.json();
+        if (compData.competitions) {
+          const tables = document.querySelectorAll('.sezon_history table');
+          if (tables.length > 1) {
+            generateCompetitionRows(tables[1], compData.competitions);
+          }
+          // generate acctual rows (liga / puchar) from `actual` if present
+          if (compData.actual) {
+            const acctualTable = document.querySelector('.acctual table');
+            if (acctualTable) generateActualRows(acctualTable, compData.actual, { liga: 'V liga', puchar: 'Puchar Polski' });
+            updateAcctualSums();
+          }
+        }
+      } catch (e) {
+        // brak pliku storage.json - to nie jest krytyczne
+      }
+    } catch (error) {
+      console.error('Błąd podczas ładowania statystyk:', error);
+    }
+  }
+
+  // Generuje tabelę sum statystyk dla każdego klubu z danych senior
+  function generateClubTable(tableElem, seniorData) {
+    if (!tableElem) return;
+
+    // Zgrupuj po klubie i zsumuj wartości numeryczne
+    const map = {};
+    const toNum = v => {
+      if (v === null || v === undefined || v === '-') return 0;
+      const n = parseInt(v, 10);
+      return isNaN(n) ? 0 : n;
+    };
+
+    seniorData.forEach(row => {
+      const club = row.club || 'Unknown';
+      if (!map[club]) map[club] = { games: 0, goals: 0, assists: 0, owngoal: 0, yellow: 0, red: 0, minutes: 0 };
+      map[club].games += toNum(row.games);
+      map[club].goals += toNum(row.goals);
+      map[club].assists += toNum(row.assists);
+      map[club].owngoal += toNum(row.owngoal);
+      map[club].yellow += toNum(row.yellow);
+      map[club].red += toNum(row.red);
+      map[club].minutes += toNum(row.minutes);
+    });
+
+    // Usuń istniejące wiersze (poza nagłówkiem)
+    const rows = tableElem.querySelectorAll('tr');
+    for (let i = rows.length - 1; i >= 1; i--) {
+      rows[i].remove();
+    }
+
+    // Wstaw nowe wiersze z podsumowaniami klubów
+    Object.keys(map).forEach(club => {
+      const totals = map[club];
+      const tr = document.createElement('tr');
+
+      const tdClub = document.createElement('td');
+      tdClub.textContent = club;
+      tdClub.className = club.includes('Granit') ? 'club2' : 'club';
+
+      const tdGames = document.createElement('td');
+      tdGames.textContent = totals.games || 0;
+
+      const tdGoals = document.createElement('td');
+      tdGoals.textContent = totals.goals || 0;
+
+      const tdAssists = document.createElement('td');
+      tdAssists.textContent = totals.assists || 0;
+
+      const tdOwn = document.createElement('td');
+      tdOwn.textContent = totals.owngoal || 0;
+
+      const tdYellow = document.createElement('td');
+      tdYellow.textContent = totals.yellow || 0;
+
+      const tdRed = document.createElement('td');
+      tdRed.textContent = totals.red || 0;
+
+      tr.appendChild(tdClub);
+      tr.appendChild(tdGames);
+      tr.appendChild(tdGoals);
+      tr.appendChild(tdAssists);
+      tr.appendChild(tdOwn);
+      tr.appendChild(tdYellow);
+      tr.appendChild(tdRed);
+
+      tableElem.appendChild(tr);
+    });
+  }
+
+  // Generuje wiersze tabeli dla danych z `competitions`
+  function generateCompetitionRows(tableElem, competitions) {
+    if (!tableElem || !competitions) return;
+
+    // Kolejność, w jakiej chcemy pokazać wiersze
+    const order = ['aklasa', 'okregowka', 'puchar'];
+    const names = { aklasa: 'A Klasa', okregowka: 'V liga', puchar: 'Puchar Polski' };
+
+    // Usuń istniejące wiersze (poza nagłówkiem)
+    const rows = tableElem.querySelectorAll('tr');
+    for (let i = rows.length - 1; i >= 1; i--) rows[i].remove();
+
+    order.forEach(key => {
+      const val = competitions[key];
+      if (!val) return;
+
+      const tr = document.createElement('tr');
+      const tdName = document.createElement('td');
+      tdName.textContent = names[key] || key;
+
+      const fmt = v => (v === null || v === undefined) ? '-' : v;
+
+      const tdGames = document.createElement('td'); tdGames.textContent = fmt(val.games);
+      const tdGoals = document.createElement('td'); tdGoals.textContent = fmt(val.goals);
+      const tdAssists = document.createElement('td'); tdAssists.textContent = fmt(val.assists);
+      const tdOwn = document.createElement('td'); tdOwn.textContent = fmt(val.owngoal);
+      const tdYellow = document.createElement('td'); tdYellow.textContent = fmt(val.yellow);
+      const tdRed = document.createElement('td'); tdRed.textContent = fmt(val.red);
+
+      tr.appendChild(tdName);
+      tr.appendChild(tdGames);
+      tr.appendChild(tdGoals);
+      tr.appendChild(tdAssists);
+      tr.appendChild(tdOwn);
+      tr.appendChild(tdYellow);
+      tr.appendChild(tdRed);
+
+      tableElem.appendChild(tr);
+    });
+  }
+
+  // Generuje wiersze dla sekcji 'BILANS WYSTĘPÓW' (liga / puchar)
+  function generateActualRows(tableElem, actualData, names = { liga: 'V liga', puchar: 'Puchar Polski' }) {
+    if (!tableElem || !actualData) return;
+
+    const tbody = tableElem.querySelector('#actual_rows');
+    if (!tbody) return;
+
+    tbody.innerHTML = '';
+
+    const order = ['liga', 'puchar'];
+    order.forEach(key => {
+      const val = actualData[key];
+      if (!val) return;
+      const tr = document.createElement('tr');
+
+      const tdName = document.createElement('td');
+      tdName.textContent = names[key] || key;
+
+      const fmt = v => (v === null || v === undefined) ? '-' : v;
+
+      const tdGames = document.createElement('td'); tdGames.textContent = fmt(val.games); tdGames.className = 'lacznie_games';
+      const tdGoals = document.createElement('td'); tdGoals.textContent = fmt(val.goals); tdGoals.className = 'lacznie_goals';
+      const tdAssists = document.createElement('td'); tdAssists.textContent = fmt(val.assists); tdAssists.className = 'lacznie_assist';
+      const tdMin = document.createElement('td'); tdMin.textContent = (val.minutes === null || val.minutes === undefined) ? '-' : (val.minutes + "'"); tdMin.className = 'lacznie_min';
+
+      tr.appendChild(tdName);
+      tr.appendChild(tdGames);
+      tr.appendChild(tdGoals);
+      tr.appendChild(tdAssists);
+      tr.appendChild(tdMin);
+
+      tbody.appendChild(tr);
+    });
+  }
+
+  function updateAcctualSums() {
+    const set = (id, cls) => {
+      const el = document.getElementById(id);
+      if (!el) return;
+      el.textContent = sumColumn(cls);
+    };
+    set('lacznie_games', 'lacznie_games');
+    set('lacznie_goals', 'lacznie_goals');
+    set('lacznie_assist', 'lacznie_assist');
+    set('lacznie_min', 'lacznie_min');
+  }
+
+  // Inicjalizacja - załadować statystyki
+  loadStats();
 })

@@ -10,32 +10,6 @@ document.addEventListener("DOMContentLoaded", () => {
     return total;
   }
 
-  document.getElementById("lacznie_games").textContent = sumColumn("lacznie_games");
-  document.getElementById("lacznie_goals").textContent = sumColumn("lacznie_goals");
-  document.getElementById("lacznie_assist").textContent = sumColumn("lacznie_assist");
-  document.getElementById("lacznie_min").textContent = sumColumn("lacznie_min");
-
-  document.getElementById("senior_match").textContent = sumColumn("senior_match");
-  document.getElementById("senior_goal").textContent = sumColumn("senior_goal");
-  document.getElementById("senior_assist").textContent = sumColumn("senior_assist");
-  document.getElementById("senior_own").textContent = sumColumn("senior_own");
-  document.getElementById("senior_yellow").textContent = sumColumn("senior_yellow");
-  document.getElementById("senior_red").textContent = sumColumn("senior_red");
-  document.getElementById("senior_min").textContent = sumColumn("senior_min");
-
-  document.getElementById("all_match").textContent = sumColumn("all_match");
-  document.getElementById("all_goal").textContent = sumColumn("all_goal");
-  document.getElementById("all_assist").textContent = sumColumn("all_assist");
-  document.getElementById("all_own").textContent = sumColumn("all_own");
-  document.getElementById("all_yellow").textContent = sumColumn("all_yellow");
-  document.getElementById("all_red").textContent = sumColumn("all_red");
-  document.getElementById("all_min").textContent = sumColumn("senior_min");
-
-  document.getElementById("junior_match").textContent = sumColumn("junior_match");
-  document.getElementById("junior_goal").textContent = sumColumn("junior_goal");
-  document.getElementById("junior_assist").textContent = sumColumn("junior_assist");
-  document.getElementById("junior_own").textContent = sumColumn("junior_own");
-
   const positions = Array.from(document.querySelectorAll(".position"));
 
   const visible = positions.map(e => ({e, val: parseInt(e.dataset.value, 10) || 0})).filter(x => x.val >= 50);
@@ -154,38 +128,6 @@ document.addEventListener("DOMContentLoaded", () => {
       el2.textContent = raw + ` (${age})`;
     }
   }
-  
-
-  // competition data
-  document.getElementById("league_games").innerHTML = document.getElementById("l_games").textContent.trim();
-  const l_goal = document.getElementById("l_goal").textContent.trim();
-  if(l_goal !== '-') {  
-    document.getElementById("league_goal").innerHTML = document.getElementById("l_goal").textContent.trim();
-  }else{
-    document.getElementById("league_goal").innerHTML = "0";
-  }
-
-  const l_assist = document.getElementById("l_assist").textContent.trim();
-  if(l_assist !== '-') {  
-    document.getElementById("league_assist").innerHTML = document.getElementById("l_assist").textContent.trim();
-  }else{
-    document.getElementById("league_assist").innerHTML = "0";
-  }
-
-  document.getElementById("puchar_games").innerHTML = document.getElementById("p_games").textContent.trim();
-  const p_goal = document.getElementById("p_goal").textContent.trim();
-  if(p_goal !== '-') {  
-    document.getElementById("puchar_goal").innerHTML = document.getElementById("p_goal").textContent.trim();
-  }else{
-    document.getElementById("puchar_goal").innerHTML = "0";
-  }
-
-  const p_assist = document.getElementById("p_assist").textContent.trim();
-  if(p_assist !== '-') {  
-    document.getElementById("puchar_assist").innerHTML = document.getElementById("p_assist").textContent.trim();
-  }else{
-    document.getElementById("puchar_assist").innerHTML = "0";
-  }
 
   // switch competition
   const btnLeague = document.getElementById("btn_league");
@@ -243,4 +185,261 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     });
   });
+
+  // Ładowanie statystyk z JSON
+  async function loadStats() {
+    try {
+      const response = await fetch('src/storage/storage.json');
+      const data = await response.json();
+      
+      // Ładowanie statystyk pozycji
+      const pitchData = data.pitch;
+      if (!pitchData || !Array.isArray(pitchData)) {
+        console.error('Brak danych pitch w JSON');
+        return;
+      }
+
+      // Mapa kodów pozycji na dane
+      const positionMap = {};
+      pitchData.forEach(pos => {
+        positionMap[pos.code] = pos;
+      });
+
+      // Aktualizowanie data-value dla divów pozycji
+      document.querySelectorAll('.position').forEach(el => {
+        const code = el.classList[1]; // Drugi class to kod pozycji
+        if (positionMap[code]) {
+          el.dataset.value = positionMap[code].games;
+          el.dataset.position = positionMap[code].name;
+        }
+      });
+
+      // Przeliczenie widocznych pozycji
+      const allPositions = Array.from(document.querySelectorAll('.position'));
+      const visible = allPositions.map(e => ({e, val: parseInt(e.dataset.value, 10) || 0}))
+        .filter(x => x.val >= 50)
+        .sort((a, b) => b.val - a.val);
+
+      const media = screen.width;
+      let maxSize = media > 768 ? 70 : 40;
+      let minSize = media > 768 ? 25 : 16;
+      const step = visible.length > 1 ? (maxSize - minSize) / (visible.length - 1) : 0;
+
+      visible.forEach((item, idx) => {
+        const size = Math.round(maxSize - idx * step);
+        item.e.style.display = 'block';
+        item.e.style.width = size + 'px';
+        item.e.style.height = size + 'px';
+      });
+
+      // Ukrycie pozostałych pozycji
+      allPositions.forEach(e => {
+        if (!visible.find(vp => vp.e === e)) {
+          e.style.display = 'none';
+        }
+      });
+
+      // Aktualizowanie głównej pozycji
+      const spots = allPositions.sort((a, b) => b.dataset.value - a.dataset.value);
+      if (spots.length > 0) {
+        const main = spots[0];
+        const extras = spots.filter(e => e !== main && parseInt(e.dataset.value, 10) >= 50);
+        
+        if (document.getElementById('position')) {
+          document.getElementById('position').textContent = main.dataset.position || '';
+        }
+        if (document.getElementById('position_bio')) {
+          document.getElementById('position_bio').textContent = main.dataset.position || '';
+        }
+        if (document.getElementById('main_position')) {
+          document.getElementById('main_position').textContent = main.dataset.position || '';
+        }
+        if (document.getElementById('alt_position')) {
+          document.getElementById('alt_position').textContent = extras.map(e => e.dataset.position).join(', ');
+        }
+      }
+
+      // Ładowanie i uzupełnianie tabel sezonów
+      if (data.seasons) {
+        // Sparings + Senior połączone
+        const allSeniorData = [];
+        if (data.seasons.sparings && data.seasons.sparings.length > 0) {
+          allSeniorData.push(...data.seasons.sparings);
+        }
+        if (data.seasons.senior && data.seasons.senior.length > 0) {
+          allSeniorData.push(...data.seasons.senior);
+        }
+        
+        if (allSeniorData.length > 0) {
+          generateSeasonRows('.sezon_history table', allSeniorData);
+            updateSums();
+        }
+        // generate current competitions (liga / puchar) from `actual` data
+        if (data.actual) {
+          const acctualTable = document.querySelector('.acctual table');
+          if (acctualTable) {
+            generateActualRows(acctualTable, data.actual, { liga: 'V liga', puchar: 'Puchar Polski' });
+            updateSums();
+          }
+          // update small stats in the games view (spans)
+          const fmt = v => (v === null || v === undefined) ? '-' : v;
+          const liga = data.actual.liga || {};
+          const puchar = data.actual.puchar || {};
+          const el = id => document.getElementById(id);
+          if (el('league_games')) el('league_games').textContent = fmt(liga.games);
+          if (el('league_goal')) el('league_goal').textContent = fmt(liga.goals);
+          if (el('league_assist')) el('league_assist').textContent = fmt(liga.assists);
+          if (el('puchar_games')) el('puchar_games').textContent = fmt(puchar.games);
+          if (el('puchar_goal')) el('puchar_goal').textContent = fmt(puchar.goals);
+          if (el('puchar_assist')) el('puchar_assist').textContent = fmt(puchar.assists);
+        }
+      }
+    } catch (error) {
+      console.error('Błąd podczas ładowania statystyk:', error);
+    }
+  }
+
+  function formatValue(val) {
+    return val === null || val === undefined || val === '' ? '-' : val;
+  }
+
+  // Aktualizuje sumy kolumn po wygenerowaniu wierszy dynamicznie
+  function updateSums() {
+    const setText = (id, className, formatFunc) => {
+      const el = document.getElementById(id);
+      if (!el) return;
+      const total = sumColumn(className);
+      el.textContent = formatFunc ? formatFunc(total) : total;
+    };
+
+    setText('lacznie_games', 'lacznie_games');
+    setText('lacznie_goals', 'lacznie_goals');
+    setText('lacznie_assist', 'lacznie_assist');
+    setText('lacznie_min', 'lacznie_min');
+
+    setText('senior_match', 'senior_match');
+    setText('senior_goal', 'senior_goal');
+    setText('senior_assist', 'senior_assist');
+    setText('senior_own', 'senior_own');
+    setText('senior_yellow', 'senior_yellow');
+    setText('senior_red', 'senior_red');
+    setText('senior_min', 'senior_min');
+
+    setText('all_match', 'all_match');
+    setText('all_goal', 'all_goal');
+    setText('all_assist', 'all_assist');
+    setText('all_own', 'all_own');
+    setText('all_yellow', 'all_yellow');
+    setText('all_red', 'all_red');
+    setText('all_min', 'senior_min');
+
+    setText('junior_match', 'junior_match');
+    setText('junior_goal', 'junior_goal');
+    setText('junior_assist', 'junior_assist');
+    setText('junior_own', 'junior_own');
+  }
+
+  function generateSeasonRows(tableSelector, seasonData) {
+    const table = document.querySelector(tableSelector);
+    if (!table) {
+      console.error(`Tabela ${tableSelector} nie znaleziona`);
+      return;
+    }
+
+    const tbody = table.querySelector('#senior_seasons');
+    if (!tbody) {
+      console.error('Element #senior_seasons nie znaleziony');
+      return;
+    }
+
+    // Generuj wiersze dla każdego sezonu
+    seasonData.forEach(season => {
+      const row = document.createElement('tr');
+      
+      const seasonCell = document.createElement('td');
+      seasonCell.textContent = season.season;
+      
+      const clubCell = document.createElement('td');
+      clubCell.textContent = season.club;
+      clubCell.className = 'club' + (season.club.includes('Granit') ? '2' : '');
+      
+      const gamesCell = document.createElement('td');
+      gamesCell.textContent = formatValue(season.games);
+      gamesCell.className = 'senior_match all_match';
+      
+      const goalsCell = document.createElement('td');
+      goalsCell.textContent = formatValue(season.goals);
+      goalsCell.className = 'senior_goal all_goal';
+      
+      const assistsCell = document.createElement('td');
+      assistsCell.textContent = formatValue(season.assists);
+      assistsCell.className = 'senior_assist all_assist';
+      
+      const owngCell = document.createElement('td');
+      owngCell.textContent = formatValue(season.owngoal);
+      owngCell.className = 'senior_own all_own';
+      
+      const yellowCell = document.createElement('td');
+      yellowCell.textContent = formatValue(season.yellow);
+      yellowCell.className = 'senior_yellow all_yellow';
+      
+      const redCell = document.createElement('td');
+      redCell.textContent = formatValue(season.red);
+      redCell.className = 'senior_red all_red';
+      
+      const minutesCell = document.createElement('td');
+      minutesCell.textContent = season.minutes ? season.minutes + "'" : '-';
+      minutesCell.className = 'senior_min';
+      
+      row.appendChild(seasonCell);
+      row.appendChild(clubCell);
+      row.appendChild(gamesCell);
+      row.appendChild(goalsCell);
+      row.appendChild(assistsCell);
+      row.appendChild(owngCell);
+      row.appendChild(yellowCell);
+      row.appendChild(redCell);
+      row.appendChild(minutesCell);
+      
+      tbody.appendChild(row);
+    });
+  }
+
+  // Generuje wiersze dla sekcji 'BILANS WYSTĘPÓW' (liga / puchar)
+  function generateActualRows(tableElem, actualData, names = { liga: 'V liga', puchar: 'Puchar Polski' }) {
+    if (!tableElem || !actualData) return;
+
+    const tbody = tableElem.querySelector('#actual_rows');
+    if (!tbody) return;
+
+    tbody.innerHTML = '';
+
+    const order = ['liga', 'puchar'];
+    order.forEach(key => {
+      const val = actualData[key];
+      if (!val) return;
+      const tr = document.createElement('tr');
+
+      const tdName = document.createElement('td');
+      tdName.textContent = names[key] || key;
+
+      const fmt = v => (v === null || v === undefined) ? '-' : v;
+
+      const tdGames = document.createElement('td'); tdGames.textContent = fmt(val.games); tdGames.className = 'lacznie_games';
+      const tdGoals = document.createElement('td'); tdGoals.textContent = fmt(val.goals); tdGoals.className = 'lacznie_goals';
+      const tdAssists = document.createElement('td'); tdAssists.textContent = fmt(val.assists); tdAssists.className = 'lacznie_assist';
+      const tdMin = document.createElement('td'); tdMin.textContent = (val.minutes === null || val.minutes === undefined) ? '-' : (val.minutes + "'"); tdMin.className = 'lacznie_min';
+
+      tr.appendChild(tdName);
+      tr.appendChild(tdGames);
+      tr.appendChild(tdGoals);
+      tr.appendChild(tdAssists);
+      tr.appendChild(tdMin);
+
+      tbody.appendChild(tr);
+    });
+  }
+
+  // Inicjalizacja - załadować statystyki
+  loadStats();
 });
