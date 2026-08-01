@@ -2,7 +2,7 @@
   "pitch": [
     {"code": "po", "name": "Prawy obrońca", "games": 94},
     {"code": "so", "name": "Środkowy obrońca", "games": 1},
-    {"code": "lo", "name": "Lewy obrońca", "games": 9},
+    {"code": "lo", "name": "Lewy obrońca", "games": 10},
     {"code": "pp", "name": "Prawy pomocnik", "games": 34},
     {"code": "spd", "name": "Środkowy pomocnik defensywny", "games": 0},
     {"code": "sp", "name": "Środkowy pomocnik", "games": 1},
@@ -68,7 +68,7 @@
       {
         "season": "Sparing",
         "club": "Granit Kończewo",
-        "games": 2,
+        "games": 3,
         "goals": null,
         "assists": null,
         "owngoal": null,
