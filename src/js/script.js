@@ -152,7 +152,7 @@ document.addEventListener("DOMContentLoaded", () => {
     viewPuchar.style.display = "grid";
     viewLeague.style.display = "none";
     leagueName.innerHTML = "Puchar Polski";
-    leagueMatches.innerHTML = "0 możliwych meczów";
+    leagueMatches.innerHTML = "1 możliwych meczów";
   }
 
   showLeague(); //default show league

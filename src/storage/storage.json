@@ -2,7 +2,7 @@
   "pitch": [
     {"code": "po", "name": "Prawy obrońca", "games": 96},
     {"code": "so", "name": "Środkowy obrońca", "games": 1},
-    {"code": "lo", "name": "Lewy obrońca", "games": 11},
+    {"code": "lo", "name": "Lewy obrońca", "games": 12},
     {"code": "pp", "name": "Prawy pomocnik", "games": 34},
     {"code": "spd", "name": "Środkowy pomocnik defensywny", "games": 0},
     {"code": "sp", "name": "Środkowy pomocnik", "games": 1},
@@ -20,10 +20,10 @@
       "minutes": 13
     },
     "puchar": {
-      "games": 0,
+      "games": 1,
       "goals": 0,
       "assists": 0,
-      "minutes": 0
+      "minutes": 45
     }
   },
   "competitions": {
@@ -44,7 +44,7 @@
       "red": null
     },
     "puchar": {
-      "games": 2,
+      "games": 3,
       "goals": null,
       "assists": null,
       "owngoal": null,
@@ -147,13 +147,13 @@
       {
         "season": "26/27",
         "club": "Granit Kończewo",
-        "games": 1,
+        "games": 2,
         "goals": null,
         "assists": null,
         "owngoal": null,
         "yellow": null,
         "red": null,
-        "minutes": "13"
+        "minutes": "58"
       }
     ]
   }
