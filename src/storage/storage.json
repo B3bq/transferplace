@@ -14,10 +14,10 @@
   ],
   "actual": {
     "liga": {
-      "games": 1,
+      "games": 2,
       "goals": 0,
       "assists": 0,
-      "minutes": 13
+      "minutes": 28
     },
     "puchar": {
       "games": 1,
@@ -28,7 +28,7 @@
   },
   "competitions": {
     "okregowka": {
-      "games": 28,
+      "games": 29,
       "goals": 1,
       "assists": null,
       "owngoal": null,
@@ -147,13 +147,13 @@
       {
         "season": "26/27",
         "club": "Granit Kończewo",
-        "games": 2,
+        "games": 3,
         "goals": null,
         "assists": null,
         "owngoal": null,
         "yellow": null,
         "red": null,
-        "minutes": "58"
+        "minutes": "73"
       }
     ]
   }

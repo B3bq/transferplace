@@ -143,7 +143,7 @@ document.addEventListener("DOMContentLoaded", () => {
     viewLeague.style.display = "grid";
     viewPuchar.style.display = "none";
     leagueName.innerHTML = "V liga";
-    leagueMatches.innerHTML = "2 możliwych meczów";
+    leagueMatches.innerHTML = "3 możliwych meczów";
   }
 
   function showPuchar() {
