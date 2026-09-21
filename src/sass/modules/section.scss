@@ -562,6 +562,17 @@ td{
     border: 1px solid $rootColor;
     padding: 3px;
 }
+.table__transfer{
+    background: $navTable;
+    color: $fontColor2;
+    font-weight: bold;
+    column-span: all;
+    text-align: left;
+
+    td{
+        padding-left: 10px;
+    }
+}
 
 .transfer, .acctual, .sezon_history, .sezon_history_junior{
     display: flex;

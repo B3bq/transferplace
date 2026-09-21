@@ -613,6 +613,17 @@ td {
   padding: 3px;
 }
 
+.table__transfer {
+  background: #f2f2f2;
+  color: #676666;
+  font-weight: bold;
+  column-span: all;
+  text-align: left;
+}
+.table__transfer td {
+  padding-left: 10px;
+}
+
 .transfer, .acctual, .sezon_history, .sezon_history_junior {
   display: flex;
   flex-direction: column;
