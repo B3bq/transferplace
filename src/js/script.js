@@ -1,7 +1,10 @@
 document.addEventListener("DOMContentLoaded", () => {
-  function sumColumn(className) {
+  function sumColumn(className, { excludeSparings = false } = {}) {
     let total = 0;
     document.querySelectorAll("." + className).forEach(td => {
+      const row = td.closest('tr');
+      if (excludeSparings && row && row.dataset.sparing === 'true') return;
+
       const val = td.textContent.trim();
       if (val !== "-" && val !== "") {
         total += parseInt(val, 10);
@@ -305,10 +308,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Aktualizuje sumy kolumn po wygenerowaniu wierszy dynamicznie
   function updateSums() {
-    const setText = (id, className, formatFunc) => {
+    const setText = (id, className, formatFunc, excludeSparings = false) => {
       const el = document.getElementById(id);
       if (!el) return;
-      const total = sumColumn(className);
+      const total = sumColumn(className, { excludeSparings });
       el.textContent = formatFunc ? formatFunc(total) : total;
     };
 
@@ -317,13 +320,13 @@ document.addEventListener("DOMContentLoaded", () => {
     setText('lacznie_assist', 'lacznie_assist');
     setText('lacznie_min', 'lacznie_min');
 
-    setText('senior_match', 'senior_match');
-    setText('senior_goal', 'senior_goal');
-    setText('senior_assist', 'senior_assist');
-    setText('senior_own', 'senior_own');
-    setText('senior_yellow', 'senior_yellow');
-    setText('senior_red', 'senior_red');
-    setText('senior_min', 'senior_min');
+    setText('senior_match', 'senior_match', null, true);
+    setText('senior_goal', 'senior_goal', null, true);
+    setText('senior_assist', 'senior_assist', null, true);
+    setText('senior_own', 'senior_own', null, true);
+    setText('senior_yellow', 'senior_yellow', null, true);
+    setText('senior_red', 'senior_red', null, true);
+    setText('senior_min', 'senior_min', null, true);
 
     setText('all_match', 'all_match');
     setText('all_goal', 'all_goal');
@@ -355,13 +358,17 @@ document.addEventListener("DOMContentLoaded", () => {
     // Generuj wiersze dla każdego sezonu
     seasonData.forEach(season => {
       const row = document.createElement('tr');
-      
+      const seasonLabel = String(season?.season || '');
+      const clubLabel = String(season?.club || '');
+      const isSparing = /sparing/i.test(seasonLabel) || /sparing/i.test(clubLabel);
+      row.dataset.sparing = String(isSparing);
+
       const seasonCell = document.createElement('td');
       seasonCell.textContent = season.season;
       
       const clubCell = document.createElement('td');
       clubCell.textContent = season.club;
-      clubCell.className = 'club' + (season.club.includes('Granit') ? '2' : '');
+      clubCell.className = 'club' + (clubLabel.includes('Granit') ? '2' : '');
       
       const gamesCell = document.createElement('td');
       gamesCell.textContent = formatValue(season.games);
