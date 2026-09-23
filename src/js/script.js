@@ -146,7 +146,7 @@ document.addEventListener("DOMContentLoaded", () => {
     viewLeague.style.display = "grid";
     viewPuchar.style.display = "none";
     leagueName.innerHTML = "V liga";
-    leagueMatches.innerHTML = "3 możliwych meczów";
+    leagueMatches.innerHTML = "5 możliwych meczów";
   }
 
   function showPuchar() {
@@ -155,7 +155,7 @@ document.addEventListener("DOMContentLoaded", () => {
     viewPuchar.style.display = "grid";
     viewLeague.style.display = "none";
     leagueName.innerHTML = "Puchar Polski";
-    leagueMatches.innerHTML = "1 możliwych meczów";
+    leagueMatches.innerHTML = "2 możliwych meczów";
   }
 
   showLeague(); //default show league
